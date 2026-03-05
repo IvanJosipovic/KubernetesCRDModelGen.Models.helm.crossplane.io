@@ -7,11 +7,11 @@ metadata:
 spec:
   group: helm.m.crossplane.io
   names:
+    kind: ClusterProviderConfig
     categories:
     - crossplane
     - provider
     - azuread
-    kind: ClusterProviderConfig
     listKind: ClusterProviderConfigList
     plural: clusterproviderconfigs
     singular: clusterproviderconfig

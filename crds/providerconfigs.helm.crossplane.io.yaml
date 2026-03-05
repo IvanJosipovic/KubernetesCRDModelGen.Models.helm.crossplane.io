@@ -7,11 +7,11 @@ metadata:
 spec:
   group: helm.crossplane.io
   names:
+    kind: ProviderConfig
     categories:
     - crossplane
     - provider
     - helm
-    kind: ProviderConfig
     listKind: ProviderConfigList
     plural: providerconfigs
     singular: providerconfig

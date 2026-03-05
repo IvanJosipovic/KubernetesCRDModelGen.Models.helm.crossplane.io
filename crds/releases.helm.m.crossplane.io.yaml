@@ -7,11 +7,11 @@ metadata:
 spec:
   group: helm.m.crossplane.io
   names:
+    kind: Release
     categories:
     - crossplane
     - managed
     - helm
-    kind: Release
     listKind: ReleaseList
     plural: releases
     singular: release
