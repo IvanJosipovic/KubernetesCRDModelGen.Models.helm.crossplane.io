@@ -119,6 +119,14 @@ public partial class V1beta1ReleaseSpecForProviderChartPullSecretRef
 [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 public partial class V1beta1ReleaseSpecForProviderChart
 {
+    /// <summary>
+    /// Digest is the OCI image digest in the format &quot;sha256:abc123...&quot;
+    /// Only supported for OCI registries. When specified, the chart will be pulled by digest.
+    /// Can be used alone or in combination with Version. Optional.
+    /// </summary>
+    [JsonPropertyName("digest")]
+    public string? Digest { get; set; }
+
     /// <summary>Name of Helm chart, required if ChartSpec.URL not set</summary>
     [JsonPropertyName("name")]
     public string? Name { get; set; }
@@ -139,7 +147,12 @@ public partial class V1beta1ReleaseSpecForProviderChart
     [JsonPropertyName("url")]
     public string? Url { get; set; }
 
-    /// <summary>Version of Helm chart, late initialized with latest version if not set</summary>
+    /// <summary>
+    /// Version of Helm chart. Optional when Digest is specified.
+    /// If not set and Digest is not specified, gets late initialized with the latest available version.
+    /// If not set and Digest is specified, version is NOT late initialized to avoid spec drift.
+    /// The actual deployed version is always available in status.atProvider.version for observability.
+    /// </summary>
     [JsonPropertyName("version")]
     public string? Version { get; set; }
 }
@@ -454,6 +467,10 @@ public partial class V1beta1ReleaseSpec
 [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 public partial class V1beta1ReleaseStatusAtProvider
 {
+    /// <summary>Digest is the last successfully deployed chart digest (for OCI charts only).</summary>
+    [JsonPropertyName("digest")]
+    public string? Digest { get; set; }
+
     [JsonPropertyName("releaseDescription")]
     public string? ReleaseDescription { get; set; }
 
@@ -463,6 +480,10 @@ public partial class V1beta1ReleaseStatusAtProvider
     /// <summary>Status is the status of a release</summary>
     [JsonPropertyName("state")]
     public string? State { get; set; }
+
+    /// <summary>Version is the actual deployed chart version.</summary>
+    [JsonPropertyName("version")]
+    public string? Version { get; set; }
 }
 
 /// <summary>A Condition that may apply to a resource.</summary>
