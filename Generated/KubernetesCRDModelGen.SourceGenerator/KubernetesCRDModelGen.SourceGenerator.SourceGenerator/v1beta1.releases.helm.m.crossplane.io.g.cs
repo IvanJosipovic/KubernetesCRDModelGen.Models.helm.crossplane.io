@@ -318,6 +318,10 @@ public partial class V1beta1ReleaseSpecForProvider
     [JsonPropertyName("insecureSkipTLSVerify")]
     public bool? InsecureSkipTLSVerify { get; set; }
 
+    /// <summary>MaxHistory limits the maximum number of revisions saved per release. Use 0 for no limit.</summary>
+    [JsonPropertyName("maxHistory")]
+    public int? MaxHistory { get; set; }
+
     /// <summary>
     /// Namespace to install the release into.
     /// The Release Managed Resource&apos;s namespace will be used if nothing is set.
