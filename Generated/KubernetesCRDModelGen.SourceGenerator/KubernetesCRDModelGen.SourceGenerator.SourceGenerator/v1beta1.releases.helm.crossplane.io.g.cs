@@ -382,6 +382,16 @@ public partial class V1beta1ReleaseSpecForProvider
     [JsonPropertyName("skipCreateNamespace")]
     public bool? SkipCreateNamespace { get; set; }
 
+    /// <summary>
+    /// TakeOwnership ignores Helm ownership validation and adopts pre-existing releases.
+    /// This is a ONE-TIME operation: after the first successful deployment, the flag is recorded
+    /// in status.atProvider.ownershipTaken and subsequent reconciles use normal Helm validation.
+    /// This prevents silent adoption of unrelated resources during chart upgrades.
+    /// Use this field to migrate manually-deployed Helm releases into Crossplane management.
+    /// </summary>
+    [JsonPropertyName("takeOwnership")]
+    public bool? TakeOwnership { get; set; }
+
     [JsonPropertyName("values")]
     public JsonNode? Values { get; set; }
 
@@ -584,6 +594,14 @@ public partial class V1beta1ReleaseStatusAtProvider
     /// <summary>Digest is the last successfully deployed chart digest (for OCI charts only).</summary>
     [JsonPropertyName("digest")]
     public string? Digest { get; set; }
+
+    /// <summary>
+    /// OwnershipTaken indicates that spec.forProvider.takeOwnership was used for initial adoption.
+    /// Once set to true, subsequent reconciles use normal Helm validation instead of takeOwnership,
+    /// preventing silent adoption of unrelated resources during upgrades.
+    /// </summary>
+    [JsonPropertyName("ownershipTaken")]
+    public bool? OwnershipTaken { get; set; }
 
     [JsonPropertyName("releaseDescription")]
     public string? ReleaseDescription { get; set; }
